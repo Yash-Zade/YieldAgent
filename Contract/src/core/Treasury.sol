@@ -82,6 +82,20 @@ contract Treasury is Ownable {
         emit CollateralUnlocked(_user, _amount);
     }
 
+     function payOutProfit(address _user, uint _amount) external {
+        require(_user != address(0), "Invalid User");
+        require(_amount != 0, "Invalid amount to pay out profit");
+        userData[_user].availableBalance += _amount;
+    }
+
+    //Absorb loss from the user
+    function absorbLoss(address _user, uint _amount) external {
+        require(_user != address(0), "Invalid User");
+        require(_amount != 0, "Invalid amount to absorb out profit");
+        require(userData[_user].availableBalance >= _amount, "Infufficient funds");
+        userData[_user].availableBalance -= _amount;
+    }
+
     // Get caller's balances
     function getUserCollateral() external view returns (UserData memory) {
         return userData[msg.sender];
