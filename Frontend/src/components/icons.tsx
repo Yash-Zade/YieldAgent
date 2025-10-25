@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { IconSvgProps } from "@/types";
 
+
 export const Logo: React.FC<IconSvgProps> = ({
   size = 36,
   height,
@@ -23,44 +24,22 @@ export const Logo: React.FC<IconSvgProps> = ({
   </svg>
 );
 
-export const DiscordIcon: React.FC<IconSvgProps> = ({
-  size = 24,
+export const XIcon: React.FC<IconSvgProps> = ({
+  size = 22,
   width,
   height,
   ...props
 }) => {
   return (
     <svg
-      height={size || height}
-      viewBox="0 0 24 24"
       width={size || width}
+      height={size || height}
+      viewBox="0 0 22 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <path
-        d="M14.82 4.26a10.14 10.14 0 0 0-.53 1.1 14.66 14.66 0 0 0-4.58 0 10.14 10.14 0 0 0-.53-1.1 16 16 0 0 0-4.13 1.3 17.33 17.33 0 0 0-3 11.59 16.6 16.6 0 0 0 5.07 2.59A12.89 12.89 0 0 0 8.23 18a9.65 9.65 0 0 1-1.71-.83 3.39 3.39 0 0 0 .42-.33 11.66 11.66 0 0 0 10.12 0q.21.18.42.33a10.84 10.84 0 0 1-1.71.84 12.41 12.41 0 0 0 1.08 1.78 16.44 16.44 0 0 0 5.06-2.59 17.22 17.22 0 0 0-3-11.59 16.09 16.09 0 0 0-4.09-1.35zM8.68 14.81a1.94 1.94 0 0 1-1.8-2 1.93 1.93 0 0 1 1.8-2 1.93 1.93 0 0 1 1.8 2 1.93 1.93 0 0 1-1.8 2zm6.64 0a1.94 1.94 0 0 1-1.8-2 1.93 1.93 0 0 1 1.8-2 1.92 1.92 0 0 1 1.8 2 1.92 1.92 0 0 1-1.8 2z"
-        fill="currentColor"
-      />
-    </svg>
-  );
-};
-
-export const TwitterIcon: React.FC<IconSvgProps> = ({
-  size = 24,
-  width,
-  height,
-  ...props
-}) => {
-  return (
-    <svg
-      height={size || height}
-      viewBox="0 0 24 24"
-      width={size || width}
-      {...props}
-    >
-      <path
-        d="M19.633 7.997c.013.175.013.349.013.523 0 5.325-4.053 11.461-11.46 11.461-2.282 0-4.402-.661-6.186-1.809.324.037.636.05.973.05a8.07 8.07 0 0 0 5.001-1.721 4.036 4.036 0 0 1-3.767-2.793c.249.037.499.062.761.062.361 0 .724-.05 1.061-.137a4.027 4.027 0 0 1-3.23-3.953v-.05c.537.299 1.16.486 1.82.511a4.022 4.022 0 0 1-1.796-3.354c0-.748.199-1.434.548-2.032a11.457 11.457 0 0 0 8.306 4.215c-.062-.3-.1-.611-.1-.923a4.026 4.026 0 0 1 4.028-4.028c1.16 0 2.207.486 2.943 1.272a7.957 7.957 0 0 0 2.556-.973 4.02 4.02 0 0 1-1.771 2.22 8.073 8.073 0 0 0 2.319-.624 8.645 8.645 0 0 1-2.019 2.083z"
-        fill="currentColor"
-      />
+      <path d="M4.25 3h5.6l3.575 5.112L17.525 3H21l-6.975 7.85L21.5 21h-5.6l-3.975-5.775L6.25 21H3l7.575-8.475L2.5 3h1.75zm3.15 2L16.3 19h1.3L8.7 5H7.4z" />
     </svg>
   );
 };
@@ -87,6 +66,31 @@ export const GithubIcon: React.FC<IconSvgProps> = ({
     </svg>
   );
 };
+
+export const LinkedInIcon: React.FC<IconSvgProps> = ({
+  size = 22,
+  width,
+  height,
+  ...props
+}) => {
+  return (
+    <svg
+      width={size || width}
+      height={size || height}
+      viewBox="0 0 24 28"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5h4V24h-4V8.5zm7.5 0h3.8v2.1h.05c.53-1 1.84-2.1 3.8-2.1 4.07 0 4.82 2.68 4.82 6.16V24h-4v-8.17c0-1.95-.03-4.47-2.72-4.47-2.73 0-3.15 2.13-3.15 4.33V24h-4V8.5z"
+        fillRule="evenodd"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+};
+
 
 export const MoonFilledIcon = ({
   size = 24,

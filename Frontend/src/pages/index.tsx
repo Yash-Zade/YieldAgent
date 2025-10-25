@@ -57,9 +57,6 @@ export default function IndexPage() {
           </Snippet>
         </div>
       </section>
-      <div>
-        <ConnectButton client={client} />
-      </div>
     </DefaultLayout>
   );
 }
