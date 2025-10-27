@@ -228,7 +228,7 @@
                     if (strategyBalance > 0) {
                         uint256 toWithdraw = remaining > strategyBalance ? strategyBalance : remaining;
                         
-                        try IStrategy(strategy).withdraw(toWithdraw) returns (uint256 withdrawn) {
+                        try IStrategy(strategy).withdraw(toWithdraw, msg.sender, owner()) returns (uint256 withdrawn) {
                             remaining -= withdrawn;
                         } catch {
                             // Skip strategy if withdraw fails
@@ -428,4 +428,4 @@
         
         emit EmergencyWithdraw(totalWithdrawn_);
     }
- }
+}
