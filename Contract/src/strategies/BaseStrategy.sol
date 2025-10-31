@@ -78,17 +78,23 @@
         return super.deposit(assets, receiver);
     }
     
-    function withdraw(uint256 assets, address receiver, address owner) 
-        public 
-        virtual 
-        override 
-        onlyVault 
-        nonReentrant 
-        returns (uint256) 
-    {
-        _generateYield();
-        return super.withdraw(assets, receiver, owner);
+function withdraw(
+    uint256 assets,
+    address receiver,
+    address /* owner */
+) public virtual override onlyVault nonReentrant returns (uint256) {
+    _generateYield();
+
+    uint256 balance = IERC20(asset()).balanceOf(address(this));
+    uint256 withdrawn = assets > balance ? balance : assets;
+
+    if (withdrawn > 0) {
+        IERC20(asset()).safeTransfer(receiver, withdrawn);
     }
+
+    return withdrawn;
+}
+
     
     function totalAssets() public view virtual override returns (uint256) {
         uint256 baseAssets = IERC20(asset()).balanceOf(address(this));
