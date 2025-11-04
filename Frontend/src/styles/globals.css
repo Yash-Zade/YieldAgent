@@ -1,3 +1,256 @@
 @import "tailwindcss";
+@plugin "tailwindcss-animate";
 
-@config "../../tailwind.config.js"
+@custom-variant dark (&:is(.dark *));
+@config "../../tailwind.config.js";
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.625rem;
+  
+  /* Core - crisp white with subtle warmth */
+  --background: oklch(0.99 0.008 280);
+  --foreground: oklch(0.08 0.025 280);
+  
+  /* Card with depth */
+  --card: oklch(1 0.005 280);
+  --card-foreground: oklch(0.08 0.025 280);
+  
+  /* Popover */
+  --popover: oklch(1 0.005 280);
+  --popover-foreground: oklch(0.08 0.025 280);
+  
+  /* Primary - electric purple gradient feel */
+  --primary: oklch(0.42 0.24 285);
+  --primary-foreground: oklch(0.99 0.008 280);
+  
+  /* Secondary - vibrant cyan accent */
+  --secondary: oklch(0.92 0.045 240);
+  --secondary-foreground: oklch(0.08 0.025 280);
+  
+  /* Muted - cool tinted gray */
+  --muted: oklch(0.92 0.025 260);
+  --muted-foreground: oklch(0.42 0.045 280);
+  
+  /* Accent - electric highlight */
+  --accent: oklch(0.94 0.065 260);
+  --accent-foreground: oklch(0.35 0.20 285);
+  
+  /* Destructive - vibrant red */
+  --destructive: oklch(0.58 0.26 30);
+  
+  /* Borders - subtle with color */
+  --border: oklch(0.86 0.025 270);
+  --input: oklch(0.86 0.025 270);
+  
+  /* Ring - electric glow */
+  --ring: oklch(0.58 0.24 285);
+  
+  /* Charts - bold vibrant palette */
+  --chart-1: oklch(0.55 0.26 285);
+  --chart-2: oklch(0.60 0.24 200);
+  --chart-3: oklch(0.58 0.22 160);
+  --chart-4: oklch(0.65 0.24 320);
+  --chart-5: oklch(0.68 0.26 50);
+  
+  /* Sidebar */
+  --sidebar: oklch(0.985 0.008 280);
+  --sidebar-foreground: oklch(0.08 0.025 280);
+  --sidebar-primary: oklch(0.42 0.24 285);
+  --sidebar-primary-foreground: oklch(0.99 0.008 280);
+  --sidebar-accent: oklch(0.92 0.045 240);
+  --sidebar-accent-foreground: oklch(0.08 0.025 280);
+  --sidebar-border: oklch(0.86 0.025 270);
+  --sidebar-ring: oklch(0.58 0.24 285);
+}
+
+.dark {
+  /* Core - deep rich background */
+  --background: oklch(0.09 0.028 280);
+  --foreground: oklch(0.98 0.015 240);
+  
+  /* Card with elevation */
+  --card: oklch(0.14 0.035 280);
+  --card-foreground: oklch(0.98 0.015 240);
+  
+  /* Popover */
+  --popover: oklch(0.14 0.035 280);
+  --popover-foreground: oklch(0.98 0.015 240);
+  
+  /* Primary - luminous electric purple */
+  --primary: oklch(0.75 0.26 285);
+  --primary-foreground: oklch(0.09 0.028 280);
+  
+  /* Secondary - vibrant cyan */
+  --secondary: oklch(0.24 0.045 260);
+  --secondary-foreground: oklch(0.98 0.015 240);
+  
+  /* Muted - rich mid-tone */
+  --muted: oklch(0.24 0.045 270);
+  --muted-foreground: oklch(0.72 0.035 260);
+  
+  /* Accent - electric pop */
+  --accent: oklch(0.28 0.065 275);
+  --accent-foreground: oklch(0.98 0.015 240);
+  
+  /* Destructive - vibrant coral-red */
+  --destructive: oklch(0.72 0.24 28);
+  
+  /* Borders - glowing subtle lines */
+  --border: oklch(0.98 0.025 260 / 12%);
+  --input: oklch(0.98 0.025 260 / 16%);
+  
+  /* Ring - bright electric glow */
+  --ring: oklch(0.75 0.26 285);
+  
+  /* Charts - neon vibrant palette */
+  --chart-1: oklch(0.72 0.28 285);
+  --chart-2: oklch(0.70 0.26 190);
+  --chart-3: oklch(0.75 0.24 160);
+  --chart-4: oklch(0.68 0.30 320);
+  --chart-5: oklch(0.72 0.28 50);
+  
+  /* Sidebar */
+  --sidebar: oklch(0.14 0.035 280);
+  --sidebar-foreground: oklch(0.98 0.015 240);
+  --sidebar-primary: oklch(0.72 0.28 285);
+  --sidebar-primary-foreground: oklch(0.98 0.015 240);
+  --sidebar-accent: oklch(0.24 0.045 260);
+  --sidebar-accent-foreground: oklch(0.98 0.015 240);
+  --sidebar-border: oklch(0.98 0.025 260 / 12%);
+  --sidebar-ring: oklch(0.75 0.26 285);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+  
+  /* Enhanced smooth transitions */
+  button, a, input, textarea, select {
+    @apply transition-all duration-200 ease-out;
+  }
+  
+  /* Headings with punch */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+    color: oklch(0.08 0.035 280);
+  }
+  
+  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    color: oklch(0.98 0.020 240);
+  }
+  
+  /* Icons get more vibrant */
+  svg {
+    @apply transition-all duration-200;
+  }
+  
+  /* Primary buttons glow */
+  button:hover, a:hover {
+    @apply shadow-sm;
+  }
+}
+
+
+/* ===========================
+   InfiYield Logo Theme Styles
+   =========================== */
+
+.logo-theme {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: var(--foreground);
+}
+
+/* Make sure the logo SVG uses currentColor (theme aware) */
+.logo-theme .logo {
+  color: currentColor;
+  transition: all 0.3s ease;
+}
+
+/* Base subtle glow */
+.logo-theme .logo path,
+.logo-theme .logo text {
+  filter: drop-shadow(0 0 3px oklch(0.75 0.26 285 / 0.4))
+          drop-shadow(0 0 6px oklch(0.75 0.26 285 / 0.25));
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover — richer purple accent + smooth lift */
+.logo-theme:hover {
+  color: oklch(0.75 0.26 285);
+  transform: translateY(-1px);
+}
+
+.logo-theme:hover .logo path,
+.logo-theme:hover .logo text {
+  filter: drop-shadow(0 0 8px oklch(0.75 0.26 285 / 0.8))
+          drop-shadow(0 0 14px oklch(0.75 0.26 285 / 0.6));
+}
+
+/* Light mode fine-tuning */
+[data-theme="light"] .logo-theme {
+  color: oklch(0.18 0.03 280);
+}
+
+[data-theme="light"] .logo-theme .logo path,
+[data-theme="light"] .logo-theme .logo text {
+  filter: drop-shadow(0 0 2px oklch(0.75 0.26 285 / 0.3))
+          drop-shadow(0 0 4px oklch(0.75 0.26 285 / 0.2));
+}
+
+[data-theme="light"] .logo-theme:hover {
+  color: oklch(0.55 0.22 285);
+  transform: translateY(-1px);
+}
+
+[data-theme="light"] .logo-theme:hover .logo path,
+[data-theme="light"] .logo-theme:hover .logo text {
+  filter: drop-shadow(0 0 6px oklch(0.75 0.26 285 / 0.6))
+          drop-shadow(0 0 12px oklch(0.75 0.26 285 / 0.4));
+}
