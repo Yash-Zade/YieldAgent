@@ -1,781 +1,491 @@
-// import React, { useState } from 'react';
-// import { Card, CardHeader, CardBody, CardFooter } from '@heroui/card';
-// import { Button } from '@heroui/button';
-// import { Input } from '@heroui/input';
-// import { Progress } from '@heroui/progress';
-// import { Chip } from '@heroui/chip';
-// import { Tabs, Tab } from '@heroui/tabs';
-// import { Divider } from '@heroui/divider';
-// import { 
-//   TrendingUp, 
-//   Wallet, 
-//   PieChart, 
-//   ArrowUpRight, 
-//   ArrowDownRight,
-//   RefreshCw,
-//   AlertCircle,
-//   Info
-// } from 'lucide-react';
-
-// const VaultDashboard = () => {
-//   const [depositAmount, setDepositAmount] = useState('');
-//   const [withdrawAmount, setWithdrawAmount] = useState('');
-//   const [activeTab, setActiveTab] = useState('deposit');
-
-//   // Mock data - replace with actual contract data
-//   const vaultStats = {
-//     totalDeposited: '1,234.56',
-//     totalWithdrawn: '456.78',
-//     totalAssets: '2,345.67',
-//     totalShares: '2,100.00',
-//     userBalance: '150.00',
-//     userShares: '142.50',
-//     estimatedAPY: '12.5',
-//     performanceFee: '10',
-//     withdrawalFee: '0.5'
-//   };
-
-//   const strategies = [
-//     { 
-//       name: 'Aave Strategy', 
-//       address: '0x1234...5678',
-//       balance: '800.00', 
-//       apy: '8.5', 
-//       allocation: '35',
-//       active: true 
-//     },
-//     { 
-//       name: 'Compound Strategy', 
-//       address: '0x8765...4321',
-//       balance: '700.00', 
-//       apy: '15.2', 
-//       allocation: '30',
-//       active: true 
-//     },
-//     { 
-//       name: 'Yearn Strategy', 
-//       address: '0xabcd...efgh',
-//       balance: '600.00', 
-//       apy: '14.8', 
-//       allocation: '25',
-//       active: true 
-//     },
-//     { 
-//       name: 'Reserve', 
-//       address: 'Vault',
-//       balance: '245.67', 
-//       apy: '0', 
-//       allocation: '10',
-//       active: true 
-//     }
-//   ];
-
-//   const handleDeposit = () => {
-//     console.log('Depositing:', depositAmount);
-//     // Implement deposit logic
-//   };
-
-//   const handleWithdraw = () => {
-//     console.log('Withdrawing:', withdrawAmount);
-//     // Implement withdraw logic
-//   };
-
-//   const handleRebalance = () => {
-//     console.log('Rebalancing vault');
-//     // Implement rebalance logic
-//   };
-
-//   const handleHarvest = () => {
-//     console.log('Harvesting yields');
-//     // Implement harvest logic
-//   };
-
-//   return (
-//     <div className="w-full max-w-7xl mx-auto p-4 space-y-6">
-//       {/* Header Section */}
-//       <div className="text-center space-y-2">
-//         <h1 className="text-4xl font-bold">
-//           <span className="text-white">Yield </span>
-//           <span className="bg-gradient-to-r from-violet-500 to-purple-500 bg-clip-text text-transparent">
-//             Vault
-//           </span>
-//         </h1>
-//         <p className="text-default-500 text-lg">
-//           Automated yield optimization across multiple DeFi strategies
-//         </p>
-//       </div>
-
-//       {/* Stats Overview */}
-//       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-//         <Card className="bg-gradient-to-br from-violet-500/10 to-purple-500/10 border-violet-500/20">
-//           <CardBody className="flex flex-row items-center gap-3">
-//             <div className="p-3 bg-violet-500/20 rounded-full">
-//               <TrendingUp className="w-6 h-6 text-violet-500" />
-//             </div>
-//             <div className="flex flex-col">
-//               <span className="text-sm text-default-500">Estimated APY</span>
-//               <span className="text-2xl font-bold text-violet-500">
-//                 {vaultStats.estimatedAPY}%
-//               </span>
-//             </div>
-//           </CardBody>
-//         </Card>
-
-//         <Card className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border-blue-500/20">
-//           <CardBody className="flex flex-row items-center gap-3">
-//             <div className="p-3 bg-blue-500/20 rounded-full">
-//               <Wallet className="w-6 h-6 text-blue-500" />
-//             </div>
-//             <div className="flex flex-col">
-//               <span className="text-sm text-default-500">Total Assets</span>
-//               <span className="text-2xl font-bold text-blue-500">
-//                 {vaultStats.totalAssets} ETH
-//               </span>
-//             </div>
-//           </CardBody>
-//         </Card>
-
-//         <Card className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border-green-500/20">
-//           <CardBody className="flex flex-row items-center gap-3">
-//             <div className="p-3 bg-green-500/20 rounded-full">
-//               <ArrowUpRight className="w-6 h-6 text-green-500" />
-//             </div>
-//             <div className="flex flex-col">
-//               <span className="text-sm text-default-500">Your Balance</span>
-//               <span className="text-2xl font-bold text-green-500">
-//                 {vaultStats.userBalance} ETH
-//               </span>
-//             </div>
-//           </CardBody>
-//         </Card>
-
-//         <Card className="bg-gradient-to-br from-orange-500/10 to-red-500/10 border-orange-500/20">
-//           <CardBody className="flex flex-row items-center gap-3">
-//             <div className="p-3 bg-orange-500/20 rounded-full">
-//               <PieChart className="w-6 h-6 text-orange-500" />
-//             </div>
-//             <div className="flex flex-col">
-//               <span className="text-sm text-default-500">Your Shares</span>
-//               <span className="text-2xl font-bold text-orange-500">
-//                 {vaultStats.userShares} yvETH
-//               </span>
-//             </div>
-//           </CardBody>
-//         </Card>
-//       </div>
-
-//       {/* Main Content */}
-//       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-//         {/* Deposit/Withdraw Section */}
-//         <Card className="lg:col-span-1">
-//           <CardHeader className="flex flex-col gap-1 px-6 pt-6">
-//             <h2 className="text-xl font-semibold">Manage Position</h2>
-//             <p className="text-sm text-default-500">Deposit or withdraw assets</p>
-//           </CardHeader>
-//           <CardBody className="px-6 pb-6">
-//             <Tabs 
-//               selectedKey={activeTab} 
-//               onSelectionChange={setActiveTab}
-//               color="primary"
-//               variant="bordered"
-//               fullWidth
-//             >
-//               <Tab key="deposit" title="Deposit">
-//                 <div className="space-y-4 mt-4">
-//                   <Input
-//                     type="number"
-//                     label="Amount"
-//                     placeholder="0.00"
-//                     value={depositAmount}
-//                     onChange={(e) => setDepositAmount(e.target.value)}
-//                     endContent={
-//                       <div className="flex items-center gap-2">
-//                         <span className="text-sm text-default-400">ETH</span>
-//                         <Button 
-//                           size="sm" 
-//                           color="primary" 
-//                           variant="flat"
-//                           className="min-w-unit-12 h-6"
-//                         >
-//                           MAX
-//                         </Button>
-//                       </div>
-//                     }
-//                   />
-//                   <div className="flex justify-between text-sm">
-//                     <span className="text-default-500">You will receive:</span>
-//                     <span className="font-semibold">
-//                       {depositAmount || '0.00'} yvETH
-//                     </span>
-//                   </div>
-//                   <Button 
-//                     color="primary" 
-//                     variant="shadow" 
-//                     fullWidth
-//                     size="lg"
-//                     startContent={<ArrowUpRight className="w-5 h-5" />}
-//                     onClick={handleDeposit}
-//                   >
-//                     Deposit
-//                   </Button>
-//                   <div className="flex items-start gap-2 p-3 bg-blue-500/10 rounded-lg border border-blue-500/20">
-//                     <Info className="w-4 h-4 text-blue-500 mt-0.5" />
-//                     <p className="text-xs text-default-600">
-//                       Your deposit will be automatically rebalanced across strategies
-//                     </p>
-//                   </div>
-//                 </div>
-//               </Tab>
-//               <Tab key="withdraw" title="Withdraw">
-//                 <div className="space-y-4 mt-4">
-//                   <Input
-//                     type="number"
-//                     label="Amount"
-//                     placeholder="0.00"
-//                     value={withdrawAmount}
-//                     onChange={(e) => setWithdrawAmount(e.target.value)}
-//                     endContent={
-//                       <div className="flex items-center gap-2">
-//                         <span className="text-sm text-default-400">yvETH</span>
-//                         <Button 
-//                           size="sm" 
-//                           color="primary" 
-//                           variant="flat"
-//                           className="min-w-unit-12 h-6"
-//                         >
-//                           MAX
-//                         </Button>
-//                       </div>
-//                     }
-//                   />
-//                   <div className="space-y-2 text-sm">
-//                     <div className="flex justify-between">
-//                       <span className="text-default-500">You will receive:</span>
-//                       <span className="font-semibold">
-//                         {withdrawAmount || '0.00'} ETH
-//                       </span>
-//                     </div>
-//                     <div className="flex justify-between">
-//                       <span className="text-default-500">Withdrawal fee ({vaultStats.withdrawalFee}%):</span>
-//                       <span className="text-red-500">
-//                         -{((parseFloat(withdrawAmount) || 0) * 0.005).toFixed(4)} ETH
-//                       </span>
-//                     </div>
-//                   </div>
-//                   <Button 
-//                     color="danger" 
-//                     variant="shadow" 
-//                     fullWidth
-//                     size="lg"
-//                     startContent={<ArrowDownRight className="w-5 h-5" />}
-//                     onClick={handleWithdraw}
-//                   >
-//                     Withdraw
-//                   </Button>
-//                   <div className="flex items-start gap-2 p-3 bg-orange-500/10 rounded-lg border border-orange-500/20">
-//                     <AlertCircle className="w-4 h-4 text-orange-500 mt-0.5" />
-//                     <p className="text-xs text-default-600">
-//                       A {vaultStats.withdrawalFee}% withdrawal fee applies to all withdrawals
-//                     </p>
-//                   </div>
-//                 </div>
-//               </Tab>
-//             </Tabs>
-//           </CardBody>
-//         </Card>
-
-//         {/* Strategies Section */}
-//         <Card className="lg:col-span-2">
-//           <CardHeader className="flex flex-row items-center justify-between px-6 pt-6">
-//             <div className="flex flex-col gap-1">
-//               <h2 className="text-xl font-semibold">Active Strategies</h2>
-//               <p className="text-sm text-default-500">Assets allocation across DeFi protocols</p>
-//             </div>
-//             <div className="flex gap-2">
-//               <Button 
-//                 color="primary" 
-//                 variant="flat"
-//                 size="sm"
-//                 startContent={<RefreshCw className="w-4 h-4" />}
-//                 onClick={handleHarvest}
-//               >
-//                 Harvest
-//               </Button>
-//               <Button 
-//                 color="primary" 
-//                 variant="shadow"
-//                 size="sm"
-//                 startContent={<PieChart className="w-4 h-4" />}
-//                 onClick={handleRebalance}
-//               >
-//                 Rebalance
-//               </Button>
-//             </div>
-//           </CardHeader>
-//           <CardBody className="px-6 pb-6">
-//             <div className="space-y-4">
-//               {strategies.map((strategy, index) => (
-//                 <div key={index} className="space-y-2">
-//                   <div className="flex items-center justify-between">
-//                     <div className="flex items-center gap-3">
-//                       <div className="flex flex-col">
-//                         <span className="font-semibold">{strategy.name}</span>
-//                         <span className="text-xs text-default-400">
-//                           {strategy.address}
-//                         </span>
-//                       </div>
-//                       <Chip 
-//                         size="sm" 
-//                         color={strategy.active ? "success" : "default"}
-//                         variant="flat"
-//                       >
-//                         {strategy.active ? 'Active' : 'Inactive'}
-//                       </Chip>
-//                     </div>
-//                     <div className="flex flex-col items-end">
-//                       <span className="text-sm font-semibold text-green-500">
-//                         {strategy.apy}% APY
-//                       </span>
-//                       <span className="text-xs text-default-400">
-//                         {strategy.balance} ETH
-//                       </span>
-//                     </div>
-//                   </div>
-//                   <Progress 
-//                     value={parseFloat(strategy.allocation)}
-//                     color={
-//                       index === 0 ? "primary" :
-//                       index === 1 ? "secondary" :
-//                       index === 2 ? "success" : "warning"
-//                     }
-//                     size="sm"
-//                     showValueLabel={true}
-//                     label={`${strategy.allocation}% allocation`}
-//                     className="max-w-full"
-//                   />
-//                   {index < strategies.length - 1 && <Divider className="my-2" />}
-//                 </div>
-//               ))}
-//             </div>
-//           </CardBody>
-//         </Card>
-//       </div>
-
-//       {/* Vault Info */}
-//       <Card>
-//         <CardHeader className="px-6 pt-6">
-//           <h2 className="text-xl font-semibold">Vault Information</h2>
-//         </CardHeader>
-//         <CardBody className="px-6 pb-6">
-//           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-//             <div className="space-y-1">
-//               <span className="text-sm text-default-500">Total Deposited</span>
-//               <p className="text-lg font-semibold">{vaultStats.totalDeposited} ETH</p>
-//             </div>
-//             <div className="space-y-1">
-//               <span className="text-sm text-default-500">Total Withdrawn</span>
-//               <p className="text-lg font-semibold">{vaultStats.totalWithdrawn} ETH</p>
-//             </div>
-//             <div className="space-y-1">
-//               <span className="text-sm text-default-500">Performance Fee</span>
-//               <p className="text-lg font-semibold">{vaultStats.performanceFee}%</p>
-//             </div>
-//             <div className="space-y-1">
-//               <span className="text-sm text-default-500">Total Supply</span>
-//               <p className="text-lg font-semibold">{vaultStats.totalShares} yvETH</p>
-//             </div>
-//           </div>
-//         </CardBody>
-//       </Card>
-//     </div>
-//   );
-// };
-
-// export default VaultDashboard;
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardBody, CardHeader } from "@heroui/card";
 import { Button } from "@heroui/button";
 import { Input } from "@heroui/input";
-import { Chip } from "@heroui/chip";
-import { Divider } from "@heroui/divider";
-import { 
-  Wallet, 
-  TrendingUp, 
-  ArrowUpCircle, 
-  ArrowDownCircle, 
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/modal";
+import {
+  Wallet,
+  ArrowDown,
+  ArrowUp,
   Gift,
-  PieChart,
-  RefreshCw
+  Lock,
+  Info,
+  Eye,
+  EyeOff,
+  TrendingUp,
+  Activity,
+  Shield,
+  Zap,
 } from "lucide-react";
+import { useAccount } from "wagmi";
+import { readContract, writeContract, waitForTransactionReceipt } from "@wagmi/core";
+import { parseUnits, formatUnits } from "viem";
+import { config } from "@/config/wagmiConfig";
 
-export default function YieldVaultPage() {
-  const [assetBalance, setAssetBalance] = useState("1000.00");
-  const [vaultShares, setVaultShares] = useState("500.00");
-  const [depositAmount, setDepositAmount] = useState("");
-  const [withdrawAmount, setWithdrawAmount] = useState("");
-  const [isDepositing, setIsDepositing] = useState(false);
-  const [isWithdrawing, setIsWithdrawing] = useState(false);
-  const [isHarvesting, setIsHarvesting] = useState(false);
-  const [isRebalancing, setIsRebalancing] = useState(false);
-  const [activeField, setActiveField] = useState<'deposit' | 'withdraw'>('deposit');
-  const [vaultStats] = useState({
-    totalAssets: "12456.78",
-    totalShares: "11234.56",
-    estimatedAPY: "12.5"
-  });
+import VUSDT_ABI from "../abis/vUSDT.json";
+import YIELD_VAULT_ABI from "../abis/yieldVault.json";
 
-  const handleAirdrop = () => {
-    // Simulate airdrop
-    const newBalance = (parseFloat(assetBalance) + 10000).toFixed(2);
-    setAssetBalance(newBalance);
-    alert("Airdrop successful! +10,000 ETH added to your balance");
-  };
+import { toast, ToastContainer } from "react-toastify";
 
-  const handleDeposit = () => {
-    if (!depositAmount || parseFloat(depositAmount) <= 0) {
-      alert("Please enter a valid deposit amount.");
-      return;
+const VUSDT_ADDRESS = import.meta.env.VITE_VUSDT_ADDRESS as `0x${string}`;
+const YIELD_VAULT_ADDRESS = import.meta.env.VITE_YIELD_VAULT_ADDRESS as `0x${string}`;
+
+export default function Vault() {
+  const { address } = useAccount();
+  const [vusdtBalance, setVusdtBalance] = useState<string>("0");
+  const [vaultData, setVaultData] = useState<string>("0");
+  const [amount, setAmount] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+  const [hideBalances, setHideBalances] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [actionType, setActionType] = useState<"deposit" | "withdraw">("deposit");
+
+  const loadVaultBalances = async () => {
+    if (!address) return;
+    try {
+      const vaultResult = await readContract(config, {
+        address: YIELD_VAULT_ADDRESS,
+        abi: YIELD_VAULT_ABI,
+        functionName: "balanceOf",
+        args: [address],
+      }) as bigint;
+
+      setVaultData(formatUnits(vaultResult, 18));
+
+      const balance = await readContract(config, {
+        address: VUSDT_ADDRESS,
+        abi: VUSDT_ABI,
+        functionName: "balanceOf",
+        args: [address],
+      }) as bigint;
+
+      setVusdtBalance(formatUnits(balance, 18));
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to load vault balances.");
     }
-
-    setIsDepositing(true);
-    
-    // Simulate deposit
-    setTimeout(() => {
-      const newAssetBalance = (parseFloat(assetBalance) - parseFloat(depositAmount)).toFixed(2);
-      const newShares = (parseFloat(vaultShares) + parseFloat(depositAmount)).toFixed(2);
-      
-      setAssetBalance(newAssetBalance);
-      setVaultShares(newShares);
-      setDepositAmount('');
-      setIsDepositing(false);
-      alert("Deposit successful!");
-    }, 1500);
   };
 
-  const handleWithdraw = () => {
-    if (!withdrawAmount || parseFloat(withdrawAmount) <= 0) {
-      alert("Please enter a valid withdrawal amount.");
-      return;
+  const handleAirdrop = async () => {
+    if (!address) return;
+    try {
+      const hasClaimed = await readContract(config, {
+        address: VUSDT_ADDRESS,
+        abi: VUSDT_ABI,
+        functionName: "hasClaimed",
+        args: [address],
+      }) as boolean;
+
+      if (hasClaimed) {
+        toast.error("You already claimed your airdrop.");
+        return;
+      }
+
+      const tx = await writeContract(config, {
+        address: VUSDT_ADDRESS,
+        abi: VUSDT_ABI,
+        functionName: "airDrop",
+        args: [],
+      });
+
+      toast.info("Transaction sent. Waiting for confirmation...");
+      const receipt = await waitForTransactionReceipt(config, { hash: tx });
+
+      if (receipt.status === "success") {
+        toast.success("10,000 vUSDT claimed successfully");
+        await loadVaultBalances();
+      } else {
+        toast.error("Airdrop failed.");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Airdrop failed.");
     }
+  };
 
-    if (parseFloat(withdrawAmount) > parseFloat(vaultShares)) {
-      alert("Insufficient shares to withdraw.");
-      return;
+  const handleTransaction = async () => {
+    if (!address || !amount) return;
+    try {
+      setLoading(true);
+      const amt = parseUnits(amount, 18);
+
+      if (actionType === "deposit") {
+        const allowance = await readContract(config, {
+          address: VUSDT_ADDRESS,
+          abi: VUSDT_ABI,
+          functionName: "allowance",
+          args: [address, YIELD_VAULT_ADDRESS],
+        }) as bigint;
+
+        if (allowance < amt) {
+          const approveTx = await writeContract(config, {
+            address: VUSDT_ADDRESS,
+            abi: VUSDT_ABI,
+            functionName: "approve",
+            args: [YIELD_VAULT_ADDRESS, amt],
+          });
+
+          toast.info("Approving spend...");
+          await waitForTransactionReceipt(config, { hash: approveTx });
+        }
+
+        const tx = await writeContract(config, {
+          address: YIELD_VAULT_ADDRESS,
+          abi: YIELD_VAULT_ABI,
+          functionName: "deposit",
+          args: [amt, address],
+        });
+
+        toast.info("Depositing... please wait");
+        const receipt = await waitForTransactionReceipt(config, { hash: tx });
+
+        if (receipt.status === "success") {
+          toast.success("Deposit successful");
+          setAmount("");
+          onClose();
+          await loadVaultBalances();
+        }
+      } else {
+        const tx = await writeContract(config, {
+          address: YIELD_VAULT_ADDRESS,
+          abi: YIELD_VAULT_ABI,
+          functionName: "withdraw",
+          args: [amt, address, address],
+        });
+
+        toast.info("Withdrawing... please wait");
+        const receipt = await waitForTransactionReceipt(config, { hash: tx });
+
+        if (receipt.status === "success") {
+          toast.success("Withdrawal successful");
+          setAmount("");
+          onClose();
+          await loadVaultBalances();
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error(`${actionType === "deposit" ? "Deposit" : "Withdrawal"} failed.`);
+    } finally {
+      setLoading(false);
     }
-
-    setIsWithdrawing(true);
-    
-    // Simulate withdrawal with 0.5% fee
-    setTimeout(() => {
-      const fee = parseFloat(withdrawAmount) * 0.005;
-      const amountAfterFee = parseFloat(withdrawAmount) - fee;
-      const newAssetBalance = (parseFloat(assetBalance) + amountAfterFee).toFixed(2);
-      const newShares = (parseFloat(vaultShares) - parseFloat(withdrawAmount)).toFixed(2);
-      
-      setAssetBalance(newAssetBalance);
-      setVaultShares(newShares);
-      setWithdrawAmount('');
-      setIsWithdrawing(false);
-      alert(`Withdrawal successful! Fee: ${fee.toFixed(4)} ETH`);
-    }, 1500);
   };
 
-  const handleHarvest = () => {
-    setIsHarvesting(true);
-    setTimeout(() => {
-      setIsHarvesting(false);
-      alert("Harvest successful! Yields collected from all strategies.");
-    }, 2000);
-  };
+  useEffect(() => {
+    if (address) loadVaultBalances();
+  }, [address]);
 
-  const handleRebalance = () => {
-    setIsRebalancing(true);
-    setTimeout(() => {
-      setIsRebalancing(false);
-      alert("Rebalance successful! Assets redistributed across strategies.");
-    }, 2000);
+  const vaultBalance = parseFloat(vaultData);
+  const walletBalance = parseFloat(vusdtBalance);
+
+  const openModal = (type: "deposit" | "withdraw") => {
+    setActionType(type);
+    setAmount("");
+    onOpen();
   };
 
   return (
-    <div className="min-h-screen p-6 bg-background">
-      <div className="max-w-5xl mx-auto space-y-6">
+    <div className="min-h-screen bg-background">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
         {/* Header */}
-        <div className="text-center space-y-2">
-          <h1 className="text-4xl font-bold">
-            Yield <span className="text-violet-600">Vault</span>
-          </h1>
-          <p className="text-foreground-500">Automated yield optimization across DeFi strategies</p>
+        <div className="flex items-center justify-between mb-12">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-4">
+              <Activity className="w-3.5 h-3.5 text-primary animate-pulse" />
+              <span className="text-xs font-medium text-primary">ERC4626 Tokenized Vault</span>
+            </div>
+            <h1 className="text-5xl font-bold tracking-tight bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent mb-3">
+              Yield Vault
+            </h1>
+            <p className="text-lg text-muted-foreground flex items-center gap-2">
+              <TrendingUp size={16} className="text-primary" />
+              Deposit vUSDT and earn automated, risk-adjusted yields
+            </p>
+          </div>
+          <Button
+            size="lg"
+            variant="outline"
+            onPress={() => setHideBalances(!hideBalances)}
+            className="h-12 px-6 rounded-lg border-border hover:bg-accent transition-all"
+            isIconOnly
+          >
+            {hideBalances ? <EyeOff size={20} /> : <Eye size={20} />}
+          </Button>
         </div>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Card className="bg-gradient-to-br from-violet-500/10 to-purple-500/10">
-            <CardBody className="flex flex-row items-center gap-3 py-4">
-              <div className="p-2 bg-violet-500/20 rounded-lg">
-                <TrendingUp className="text-violet-500" size={20} />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xs text-foreground-500">Estimated APY</span>
-                <span className="text-xl font-bold text-violet-500">
-                  {vaultStats.estimatedAPY}%
-                </span>
-              </div>
-            </CardBody>
-          </Card>
+        {/* Main Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
 
-          <Card className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10">
-            <CardBody className="flex flex-row items-center gap-3 py-4">
-              <div className="p-2 bg-blue-500/20 rounded-lg">
-                <PieChart className="text-blue-500" size={20} />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xs text-foreground-500">Total Assets</span>
-                <span className="text-xl font-bold text-blue-500">
-                  {parseFloat(vaultStats.totalAssets).toFixed(2)} ETH
-                </span>
-              </div>
-            </CardBody>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-green-500/10 to-emerald-500/10">
-            <CardBody className="flex flex-row items-center gap-3 py-4">
-              <div className="p-2 bg-green-500/20 rounded-lg">
-                <Wallet className="text-green-500" size={20} />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xs text-foreground-500">Your Shares</span>
-                <span className="text-xl font-bold text-green-500">
-                  {parseFloat(vaultShares).toFixed(4)} yvETH
-                </span>
-              </div>
-            </CardBody>
-          </Card>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-          {/* Wallet Overview */}
-          <Card className="lg:col-span-1">
-            <CardHeader>
-              <div className="flex items-center space-x-2">
-                <Wallet className="text-primary" size={18} />
-                <h3 className="text-lg font-semibold">Your Wallet</h3>
-              </div>
-            </CardHeader>
-            <CardBody className="space-y-4">
-              <div className="bg-default-100 p-4 rounded-lg space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-foreground-500">Asset Balance</span>
-                  <Chip color="primary" variant="flat" size="sm">
-                    {parseFloat(assetBalance).toFixed(4)} ETH
-                  </Chip>
-                </div>
-                <Divider />
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-foreground-500">Vault Shares</span>
-                  <Chip color="success" variant="flat" size="sm">
-                    {parseFloat(vaultShares).toFixed(4)} yvETH
-                  </Chip>
-                </div>
-              </div>
-
-              <Button
-                color="secondary"
-                variant="flat"
-                size="lg"
-                onPress={handleAirdrop}
-                startContent={<Gift size={18} />}
-                className="w-full"
-              >
-                Get Test Tokens
-              </Button>
-
-              <div className="flex gap-2">
-                <Button
-                  color="primary"
-                  variant="flat"
-                  size="sm"
-                  onPress={handleHarvest}
-                  startContent={<TrendingUp size={16} />}
-                  className="flex-1"
-                  isLoading={isHarvesting}
-                  isDisabled={isHarvesting}
-                >
-                  Harvest
-                </Button>
-                <Button
-                  color="primary"
-                  variant="flat"
-                  size="sm"
-                  onPress={handleRebalance}
-                  startContent={<RefreshCw size={16} />}
-                  className="flex-1"
-                  isLoading={isRebalancing}
-                  isDisabled={isRebalancing}
-                >
-                  Rebalance
-                </Button>
-              </div>
-            </CardBody>
-          </Card>
-
-          {/* Vault Operations */}
-          <Card className="lg:col-span-2">
-            <CardHeader>
-              <h3 className="text-xl font-semibold">Vault Operations</h3>
-            </CardHeader>
-            <CardBody className="space-y-6">
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Deposit Section */}
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-2">
-                    <ArrowUpCircle className="text-success" size={18} />
-                    <h4 className="font-medium">Deposit</h4>
+          {/* Vault Balance - Main Card */}
+          <div className="lg:col-span-2">
+            <div className="p-8 rounded-2xl bg-card border border-border hover:border-primary/40 transition-all">
+              <div className="space-y-6">
+                {/* Header */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20">
+                      <Lock size={20} className="text-primary" />
+                    </div>
+                    <span className="text-lg font-semibold text-foreground">Vault Balance</span>
                   </div>
-                  <Input
-                    type="number"
-                    label="Amount (ETH)"
-                    placeholder="0.00"
-                    value={depositAmount}
-                    onChange={(e) => setDepositAmount(e.target.value)}
-                    onFocus={() => setActiveField('deposit')}
-                    size="lg"
-                  />
-                  <Button
-                    color="success"
-                    size="lg"
-                    onPress={handleDeposit}
-                    startContent={<ArrowUpCircle size={18} />}
-                    className="w-full"
-                    isLoading={isDepositing}
-                    isDisabled={!depositAmount || parseFloat(depositAmount) <= 0 || isDepositing}
-                  >
-                    {isDepositing ? "Depositing..." : "Deposit"}
-                  </Button>
-                </div>
-
-                {/* Withdraw Section */}
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-2">
-                    <ArrowDownCircle className="text-danger" size={18} />
-                    <h4 className="font-medium">Withdraw</h4>
+                  <div className="px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+                    <span className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">Active</span>
                   </div>
-                  <Input
-                    type="number"
-                    label="Amount (ETH)"
-                    placeholder="0.00"
-                    value={withdrawAmount}
-                    onChange={(e) => setWithdrawAmount(e.target.value)}
-                    onFocus={() => setActiveField('withdraw')}
-                    size="lg"
-                  />
+                </div>
+
+                {/* Balance Display */}
+                <div className="py-4">
+                  <p className="text-5xl font-bold text-foreground mb-2">
+                    {hideBalances ? "••••••" : `${vaultBalance.toFixed(2)}`}
+                  </p>
+                  <p className="text-lg text-muted-foreground">vUSDT Deposited</p>
+                </div>
+
+                {/* Stats Grid */}
+                <div className="grid grid-cols-3 gap-4 py-6 border-t border-b border-border">
+                  <div className="space-y-1">
+                    <p className="text-sm text-muted-foreground font-medium">Base APY</p>
+                    <p className="text-2xl font-bold text-primary">5.2%</p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-sm text-muted-foreground font-medium">Earned</p>
+                    <p className="text-2xl font-bold text-foreground">$0.00</p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-sm text-muted-foreground font-medium">TVL</p>
+                    <p className="text-2xl font-bold text-foreground">$2.4M</p>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-3 pt-2">
                   <Button
-                    color="danger"
-                    variant="bordered"
+                    onPress={() => openModal("deposit")}
                     size="lg"
-                    onPress={handleWithdraw}
-                    startContent={<ArrowDownCircle size={18} />}
-                    className="w-full"
-                    isLoading={isWithdrawing}
-                    isDisabled={!withdrawAmount || parseFloat(withdrawAmount) <= 0 || isWithdrawing}
+                    className="flex-1 h-12 rounded-lg bg-primary text-primary-foreground font-medium shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all"
                   >
-                    {isWithdrawing ? "Withdrawing..." : "Withdraw"}
+                    <ArrowDown size={18} />
+                    Deposit
+                  </Button>
+                  <Button
+                    onPress={() => openModal("withdraw")}
+                    size="lg"
+                    variant="outline"
+                    className="flex-1 h-12 rounded-lg border-border hover:bg-accent font-medium transition-all"
+                  >
+                    <ArrowUp size={18} />
+                    Withdraw
                   </Button>
                 </div>
               </div>
+            </div>
+          </div>
 
-              {/* Quick Actions */}
-              <div className="bg-default-100 p-4 rounded-lg">
-                <h5 className="font-medium mb-3 text-sm">Quick Actions</h5>
-                <div className="grid grid-cols-4 gap-2">
-                  <Button
-                    size="sm"
-                    variant="flat"
-                    onPress={() => {
-                      const value =
-                        activeField === 'deposit'
-                          ? (parseFloat(assetBalance) * 0.25).toFixed(2)
-                          : (parseFloat(vaultShares) * 0.25).toFixed(2);
+          {/* Sidebar */}
+          <div className="space-y-6">
 
-                      activeField === 'deposit' ? setWithdrawAmount("") : setDepositAmount("");
-                      activeField === 'deposit'
-                        ? setDepositAmount(value)
-                        : setWithdrawAmount(value);
-                    }}
-                  >
-                    25%
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="flat"
-                    onPress={() => {
-                      const value =
-                        activeField === 'deposit'
-                          ? (parseFloat(assetBalance) * 0.5).toFixed(2)
-                          : (parseFloat(vaultShares) * 0.5).toFixed(2);
-
-                      activeField === 'deposit' ? setWithdrawAmount("") : setDepositAmount("");
-                      activeField === 'deposit'
-                        ? setDepositAmount(value)
-                        : setWithdrawAmount(value);
-                    }}
-                  >
-                    50%
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="flat"
-                    onPress={() => {
-                      const value =
-                        activeField === 'deposit'
-                          ? (parseFloat(assetBalance) * 0.75).toFixed(2)
-                          : (parseFloat(vaultShares) * 0.75).toFixed(2);
-
-                      activeField === 'deposit' ? setWithdrawAmount("") : setDepositAmount("");
-                      activeField === 'deposit'
-                        ? setDepositAmount(value)
-                        : setWithdrawAmount(value);
-                    }}
-                  >
-                    75%
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="flat"
-                    onPress={() => {
-                      const value =
-                        activeField === 'deposit'
-                          ? parseFloat(assetBalance).toFixed(2)
-                          : parseFloat(vaultShares).toFixed(2);
-
-                      activeField === 'deposit' ? setWithdrawAmount("") : setDepositAmount("");
-                      activeField === 'deposit'
-                        ? setDepositAmount(value)
-                        : setWithdrawAmount(value);
-                    }}
-                  >
-                    Max
-                  </Button>
+            {/* Wallet Balance */}
+            <div className="p-8 rounded-2xl bg-card border border-border hover:border-primary/40 transition-all">
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <div className="p-2 rounded-xl bg-primary/10 border border-primary/20">
+                    <Wallet size={16} className="text-primary" />
+                  </div>
+                  <span className="text-sm font-semibold text-muted-foreground">Wallet Balance</span>
+                </div>
+                <div>
+                  <p className="text-3xl font-bold text-foreground mb-1">
+                    {hideBalances ? "••••••" : walletBalance.toFixed(2)}
+                  </p>
+                  <p className="text-sm text-muted-foreground">vUSDT Available</p>
                 </div>
               </div>
-            </CardBody>
-          </Card>
+            </div>
+
+            {/* Airdrop Card */}
+            <div className="p-8 rounded-2xl bg-gradient-to-br from-primary/5 via-transparent to-primary/5 border border-primary/20">
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <div className="p-2 rounded-xl bg-primary/10 border border-primary/20">
+                    <Gift size={18} className="text-primary" />
+                  </div>
+                  <span className="text-base font-semibold text-foreground">Claim Airdrop</span>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Get <span className="text-primary font-semibold">10,000 vUSDT</span> tokens to start earning yields in the vault
+                </p>
+                <Button
+                  onPress={handleAirdrop}
+                  size="lg"
+                  className="w-full h-11 rounded-lg bg-primary text-primary-foreground font-medium shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all"
+                >
+                  Claim Tokens
+                </Button>
+              </div>
+            </div>
+
+          </div>
         </div>
 
-        {/* Info Notice */}
-        <Card className="bg-violet-50 dark:bg-violet-950/20 border-violet-200 dark:border-violet-800">
-          <CardBody className="py-3">
-            <div className="flex items-center justify-center space-x-2 text-violet-700 dark:text-violet-300">
-              <TrendingUp size={16} />
-              <span className="text-sm">
-                Assets are automatically rebalanced across strategies for optimal yields
+        {/* Features Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-8 rounded-2xl bg-card border border-border hover:border-primary/40 transition-all">
+            <div className="flex items-start gap-4">
+              <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
+                <Zap size={20} className="text-primary" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-bold text-foreground mb-2">Auto-Compounding</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Yields automatically reinvested for maximized returns
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-8 rounded-2xl bg-card border border-border hover:border-primary/40 transition-all">
+            <div className="flex items-start gap-4">
+              <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
+                <Shield size={20} className="text-primary" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-bold text-foreground mb-2">No Lock Period</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Withdraw your funds anytime without penalties or fees
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-8 rounded-2xl bg-card border border-border hover:border-primary/40 transition-all">
+            <div className="flex items-start gap-4">
+              <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
+                <Info size={20} className="text-primary" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-bold text-foreground mb-2">Audited Contracts</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Security-first approach with comprehensive testing coverage
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Transaction Modal */}
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        size="lg"
+        classNames={{
+          base: "bg-card border border-border rounded-2xl",
+          header: "border-b border-border px-8 py-6",
+          body: "px-8 py-6",
+          footer: "border-t border-border px-8 py-6"
+        }}
+      >
+        <ModalContent>
+          <ModalHeader>
+            <div className="flex items-center gap-3">
+              <div className={`p-2.5 rounded-xl ${
+                actionType === "deposit" 
+                  ? "bg-primary/10 border border-primary/20" 
+                  : "bg-orange-500/10 border border-orange-500/20"
+              }`}>
+                {actionType === "deposit" ? (
+                  <ArrowDown size={20} className="text-primary" />
+                ) : (
+                  <ArrowUp size={20} className="text-orange-600 dark:text-orange-400" />
+                )}
+              </div>
+              <span className="text-xl font-bold text-foreground">
+                {actionType === "deposit" ? "Deposit to Vault" : "Withdraw from Vault"}
               </span>
             </div>
-          </CardBody>
-        </Card>
-      </div>
+          </ModalHeader>
+          <ModalBody>
+            <div className="space-y-5">
+              <div>
+                <div className="flex justify-between items-center mb-3">
+                  <label className="text-sm font-medium text-muted-foreground">Amount</label>
+                  <button
+                    onClick={() => setAmount(actionType === "deposit" ? vusdtBalance : vaultData)}
+                    className="text-sm text-primary hover:text-primary/80 font-semibold transition-colors"
+                  >
+                    Max: {(actionType === "deposit" ? walletBalance : vaultBalance).toFixed(2)}
+                  </button>
+                </div>
+                <Input
+                  type="number"
+                  placeholder="0.00"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  size="lg"
+                  classNames={{
+                    inputWrapper: "h-14 border-border rounded-lg bg-background hover:bg-accent transition-colors",
+                    input: "text-lg font-semibold"
+                  }}
+                  endContent={
+                    <span className="text-base font-medium text-muted-foreground">vUSDT</span>
+                  }
+                />
+              </div>
+
+              {amount && parseFloat(amount) > 0 && (
+                <div className={`p-4 rounded-xl border ${
+                  actionType === "deposit" 
+                    ? "bg-primary/5 border-primary/20" 
+                    : "bg-orange-500/5 border-orange-500/20"
+                }`}>
+                  <p className="text-sm text-muted-foreground">
+                    New vault balance:{" "}
+                    <span className="font-bold text-foreground">
+                      {actionType === "deposit"
+                        ? (vaultBalance + parseFloat(amount)).toFixed(2)
+                        : (vaultBalance - parseFloat(amount)).toFixed(2)
+                      } vUSDT
+                    </span>
+                  </p>
+                </div>
+              )}
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <div className="flex gap-3 w-full">
+              <Button 
+                variant="outline" 
+                onPress={onClose} 
+                size="lg"
+                className="flex-1 h-12 rounded-lg border-border hover:bg-accent font-medium transition-all"
+              >
+                Cancel
+              </Button>
+              <Button
+                onPress={handleTransaction}
+                isLoading={loading}
+                isDisabled={!amount || parseFloat(amount) <= 0}
+                size="lg"
+                className={`flex-1 h-12 rounded-lg font-medium shadow-lg transition-all ${
+                  actionType === "deposit"
+                    ? "bg-primary text-primary-foreground shadow-primary/25 hover:shadow-xl hover:shadow-primary/30"
+                    : "bg-orange-500 text-white shadow-orange-500/25 hover:shadow-xl hover:shadow-orange-500/30"
+                }`}
+              >
+                {loading ? "Processing..." : `Confirm ${actionType === "deposit" ? "Deposit" : "Withdrawal"}`}
+              </Button>
+            </div>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        theme="dark"
+      />
     </div>
   );
 }
