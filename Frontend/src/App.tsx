@@ -7,6 +7,7 @@ import AboutPage from "@/pages/about";
 import PoolPage from "./pages/pool";
 import VaultPage from "./pages/vault";
 import Navbar from "./components/navbar";
+import VaultPage from "./pages/admin";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route element={<PoolPage />} path="/pools" />
         <Route element={<VaultPage />} path="/vault" />
         <Route element={<AboutPage />} path="/about" />
+        <Route element={<AdminPage />} path="/admin" />
       </Routes>
     </>
   );
