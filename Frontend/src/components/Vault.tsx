@@ -39,7 +39,7 @@ export default function Vault() {
   const [hideBalances, setHideBalances] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [actionType, setActionType] = useState<"deposit" | "withdraw">("deposit");
-  
+
   // Withdraw specific states - Trading style
   const [fromToken, setFromToken] = useState<"vusdt" | "InfiCoin">("vusdt");
   const [fromAmount, setFromAmount] = useState<string>("");
@@ -78,7 +78,7 @@ export default function Vault() {
           functionName: "previewRedeem",
           args: [oneShare],
         }) as bigint;
-        
+
         setSharePrice(parseFloat(formatUnits(assetsPerShare, 18)));
       } catch (err) {
         console.error("Error calculating share price:", err);
@@ -155,7 +155,7 @@ export default function Vault() {
 
   const handleFromAmountChange = async (value: string) => {
     setFromAmount(value);
-    
+
     if (!value || parseFloat(value) <= 0) {
       setToAmount("");
       return;
@@ -171,7 +171,7 @@ export default function Vault() {
           functionName: "previewWithdraw",
           args: [amt],
         }) as bigint;
-        
+
         setToAmount(formatUnits(sharesNeeded, 18));
       } else {
         const assetsReceived = await readContract(config, {
@@ -180,13 +180,13 @@ export default function Vault() {
           functionName: "previewRedeem",
           args: [amt],
         }) as bigint;
-        
+
         setToAmount(formatUnits(assetsReceived, 18));
       }
     } catch (err) {
       console.error("Error calculating conversion:", err);
-      const calculated = fromToken === "vusdt" 
-        ? parseFloat(value) / sharePrice 
+      const calculated = fromToken === "vusdt"
+        ? parseFloat(value) / sharePrice
         : parseFloat(value) * sharePrice;
       setToAmount(calculated.toFixed(6));
     }
@@ -194,7 +194,7 @@ export default function Vault() {
 
   const handleToAmountChange = async (value: string) => {
     setToAmount(value);
-    
+
     if (!value || parseFloat(value) <= 0) {
       setFromAmount("");
       return;
@@ -210,7 +210,7 @@ export default function Vault() {
           functionName: "previewMint",
           args: [amt],
         }) as bigint;
-        
+
         setFromAmount(formatUnits(assetsNeeded, 18));
       } else {
         const sharesNeeded = await readContract(config, {
@@ -219,13 +219,13 @@ export default function Vault() {
           functionName: "previewDeposit",
           args: [amt],
         }) as bigint;
-        
+
         setFromAmount(formatUnits(sharesNeeded, 18));
       }
     } catch (err) {
       console.error("Error calculating reverse conversion:", err);
-      const calculated = fromToken === "vusdt" 
-        ? parseFloat(value) * sharePrice 
+      const calculated = fromToken === "vusdt"
+        ? parseFloat(value) * sharePrice
         : parseFloat(value) / sharePrice;
       setFromAmount(calculated.toFixed(6));
     }
@@ -239,15 +239,15 @@ export default function Vault() {
 
   const handleTransaction = async () => {
     if (!address) return;
-    
+
     try {
       setLoading(true);
 
       if (actionType === "deposit") {
         if (!amount || parseFloat(amount) <= 0) return;
-        
+
         const amt = parseUnits(amount, 18);
-        
+
         const allowance = await readContract(config, {
           address: VUSDT_ADDRESS,
           abi: VUSDT_ABI,
@@ -286,7 +286,7 @@ export default function Vault() {
         }
       } else {
         if (!fromAmount || parseFloat(fromAmount) <= 0) return;
-        
+
         const amt = parseUnits(fromAmount, 18);
 
         if (fromToken === "vusdt") {
@@ -379,7 +379,7 @@ export default function Vault() {
             size="lg"
             variant="bordered"
             onPress={() => setHideBalances(!hideBalances)}
-            className="h-12 px-6 rounded-lg border-border hover:bg-accent transition-all"
+            className="h-12 w-12 rounded-lg border-border hover:bg-accent transition-all"
             isIconOnly
           >
             {hideBalances ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -570,11 +570,10 @@ export default function Vault() {
           <ModalHeader>
             <div className="flex items-center gap-3">
               <div
-                className={`p-2.5 rounded-xl ${
-                  actionType === "deposit"
+                className={`p-2.5 rounded-xl ${actionType === "deposit"
                     ? "bg-primary/10 border border-primary/20"
                     : "bg-orange-500/10 border border-orange-500/20"
-                }`}
+                  }`}
               >
                 {actionType === "deposit" ? (
                   <ArrowDown size={20} className="text-primary" />
@@ -648,7 +647,7 @@ export default function Vault() {
                     <button
                       onClick={() => {
                         // FIXED: Use vault balance (in appropriate token)
-                        const max = fromToken === "vusdt" 
+                        const max = fromToken === "vusdt"
                           ? (vaultBalance * sharePrice).toString()  // Convert InfiCoin vault balance to vUSDT equivalent
                           : vaultData;  // Use InfiCoin vault balance directly
                         handleFromAmountChange(max);
@@ -656,7 +655,7 @@ export default function Vault() {
                       className="text-sm text-primary hover:text-primary/80 font-semibold transition-colors"
                     >
                       {/* FIXED: Display vault balance, not wallet balance */}
-                      Balance: {fromToken === "vusdt" 
+                      Balance: {fromToken === "vusdt"
                         ? (vaultBalance * sharePrice).toFixed(2)
                         : vaultBalance.toFixed(6)}
                     </button>
@@ -717,7 +716,7 @@ export default function Vault() {
                   </div>
                 </div>
 
-                     {/* Transaction Summary */}
+                {/* Transaction Summary */}
                 {fromAmount && parseFloat(fromAmount) > 0 && (
                   <div className="p-4 rounded-xl border bg-orange-500/5 border-orange-500/20">
                     <div className="space-y-2 text-sm">
@@ -762,19 +761,18 @@ export default function Vault() {
                     : !fromAmount || parseFloat(fromAmount) <= 0
                 }
                 size="lg"
-                className={`flex-1 h-12 rounded-lg font-medium shadow-lg transition-all ${
-                  actionType === "deposit"
+                className={`flex-1 h-12 rounded-lg font-medium shadow-lg transition-all ${actionType === "deposit"
                     ? "bg-primary text-primary-foreground shadow-primary/25 hover:shadow-xl hover:shadow-primary/30"
                     : "bg-orange-500 text-white shadow-orange-500/25 hover:shadow-xl hover:shadow-orange-500/30"
-                }`}
+                  }`}
               >
                 {loading
                   ? "Processing..."
                   : actionType === "deposit"
-                  ? "Confirm Deposit"
-                  : fromToken === "vusdt"
-                  ? "Confirm Withdrawal"
-                  : "Confirm Redemption"}
+                    ? "Confirm Deposit"
+                    : fromToken === "vusdt"
+                      ? "Confirm Withdrawal"
+                      : "Confirm Redemption"}
               </Button>
             </div>
           </ModalFooter>

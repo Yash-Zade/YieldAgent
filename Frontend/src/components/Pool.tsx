@@ -315,7 +315,7 @@ export default function Pools() {
                         </div>
                         <Button
                             size="lg"
-                            variant="outline"
+                            variant="bordered"
                             onPress={loadStrategiesData}
                             className="h-12 px-6 rounded-lg border-border hover:bg-accent transition-all"
                             isIconOnly
