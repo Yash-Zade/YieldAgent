@@ -49,7 +49,6 @@ export default function DocsPage() {
     setCopiedCode(id);
     setTimeout(() => setCopiedCode(null), 2000);
   };
-
   type CodeBlockProps = {
     code: any;
     language?: any;
@@ -75,7 +74,6 @@ export default function DocsPage() {
       </pre>
     </div>
   );
-
 
   const sections = {
     overview: (
